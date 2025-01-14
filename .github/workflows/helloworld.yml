@@ -3,7 +3,7 @@ name: Hello World
 on: [push]
 
 jobs:
-  main:
+  job1:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -20,3 +20,15 @@ jobs:
       - name: execute py script # run file
         run: |
           python hello_world.py
+
+  job2:
+    needs: [ job1 ]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: upload the artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: helloworld.arft
+          path: . 
+          
